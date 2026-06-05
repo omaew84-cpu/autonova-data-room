@@ -1,1 +1,62 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AUTONOVA Series A Data Room</title><style>body{margin:0;font-family:system-ui;background:#0b1e3a;color:#fff} .wrap{max-width:900px;margin:auto;padding:32px} .card{background:#fff;color:#111;border-radius:20px;padding:24px;margin-top:24px} .btn{display:block;background:#0b1e3a;color:#fff;text-align:center;padding:16px;border-radius:12px;text-decoration:none;font-weight:600} .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px} .kpi{background:#13294b;padding:16px;border-radius:12px;text-align:center} .kpi div{font-size:13px;opacity:.8} .kpi b{font-size:22px}</style></head><body><div class="wrap"><h1>AUTONOVA Series A Investor Data Room</h1><p>เข้าถึงเอกสารสำคัญสำหรับการพิจารณาลงทุนรอบ Series A $15M</p><a class="btn" href="AUTONOVA_Deal_Room.pdf">เปิดเอกสาร PDF (v2.3)</a><div class="grid"><div class="kpi"><div>TAM</div><b>$120B</b></div><div class="kpi"><div>ARR ปัจจุบัน</div><b>$4.2M</b></div><div class="kpi"><div>Gross Margin</div><b>82%</b></div></div><div class="card"><h3>เอกสารนำเสนอ (PDF)</h3><p>AUTONOVA Deal Room — Enterprise AI Orchestration Platform</p><a class="btn" href="AUTONOVA_Deal_Room.pdf">เปิดเอกสาร PDF</a><p style="text-align:center;font-size:13px;opacity:.7;margin-top:12px">อัปเดตล่าสุด: 4 มิ.ย. 2026 • Data Room v2.3 • Confidential</p></div></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AUTONOVA | Series A $15M Data Room</title>
+<style>
+:root{--bg:#0A0A0A;--gold:#C8943A;--text:#EAEAEA}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px}
+.container{max-width:600px}
+h1{font-size:48px;font-weight:700;letter-spacing:6px;color:var(--gold);margin-bottom:12px}
+.subtitle{font-size:18px;opacity:0.8;margin-bottom:48px}
+.btn{display:block;border:2px solid var(--gold);color:var(--gold);padding:16px 32px;text-decoration:none;font-size:16px;font-weight:600;letter-spacing:1px;transition:0.2s;border-radius:4px;margin:16px auto;max-width:320px;cursor:pointer;background:transparent}
+.btn:hover{background:var(--gold);color:var(--bg)}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{width:95vw;height:90vh;position:relative}
+.modal iframe{width:100%;height:100%;border:2px solid var(--gold);border-radius:8px;background:#fff}
+.close{position:absolute;top:-40px;right:0;color:var(--gold);font-size:36px;cursor:pointer;font-weight:300}
+.footer{margin-top:64px;font-size:13px;opacity:0.5}
+@media(max-width:480px){h1{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>AUTONOVA</h1>
+  <p class="subtitle">Series A $15M | AI Infrastructure for Southeast Asia</p>
+
+  <button class="btn" onclick="openModal('en')">View Deck EN</button>
+  <button class="btn" onclick="openModal('th')">ดู Deck TH</button>
+  <a class="btn" href="./AUTONOVA_Deal_Room.pdf" target="_blank">Access Data Room PDF</a>
+
+  <div class="footer">Confidential • Updated June 2026</div>
+</div>
+
+<div id="modal" class="modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe id="deckFrame" src=""></iframe>
+  </div>
+</div>
+
+<script>
+const decks = {
+  en: './autonova_v4_en.html',
+  th: './autonova_v4_th.html'
+};
+function openModal(lang){
+  document.getElementById('deckFrame').src = decks[lang];
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('active');
+  document.getElementById('deckFrame').src = '';
+  document.body.style.overflow = 'auto';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
