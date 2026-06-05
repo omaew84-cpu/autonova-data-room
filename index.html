@@ -7,11 +7,11 @@
 <style>
 :root{--bg:#0A0A0A;--gold:#C8943A;--text:#EAEAEA}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px}
-.container{max-width:600px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.container{max-width:600px;text-align:center}
 h1{font-size:48px;font-weight:700;letter-spacing:6px;color:var(--gold);margin-bottom:12px}
 .subtitle{font-size:18px;opacity:0.8;margin-bottom:48px}
-.btn{display:block;border:2px solid var(--gold);color:var(--gold);padding:16px 32px;text-decoration:none;font-size:16px;font-weight:600;letter-spacing:1px;transition:0.2s;border-radius:4px;margin:16px auto;max-width:320px;cursor:pointer;background:transparent}
+.btn{display:block;border:2px solid var(--gold);color:var(--gold);padding:16px 32px;text-decoration:none;font-size:16px;font-weight:600;margin-bottom:16px;transition:all 0.3s}
 .btn:hover{background:var(--gold);color:var(--bg)}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;align-items:center;justify-content:center}
 .modal.active{display:flex}
@@ -31,7 +31,7 @@ h1{font-size:48px;font-weight:700;letter-spacing:6px;color:var(--gold);margin-bo
   <button class="btn" onclick="openModal('th')">ดู Deck TH</button>
   <a class="btn" href="./AUTONOVA_Deal_Room.pdf" target="_blank">Access Data Room PDF</a>
 
-  <div class="footer">Confidential • Updated June 2026</div>
+  <div class="footer">Confidential · Updated June 2026</div>
 </div>
 
 <div id="modal" class="modal" onclick="closeModal()">
@@ -42,6 +42,12 @@ h1{font-size:48px;font-weight:700;letter-spacing:6px;color:var(--gold);margin-bo
 </div>
 
 <script>
+// ใส่รหัสผ่านก่อนเข้าเว็บ
+const pass = prompt("Enter Access Code:");
+if(pass!== "AUTONOVA2026") {
+  document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:40vh'>Access Denied</h1>";
+}
+
 const decks = {
   en: './autonova_v4_en.html',
   th: './autonova_v4_th.html'
