@@ -1,69 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AUTONOVA | Series A $15M Data Room</title>
-<style>
-:root{--bg:#0A0A0A;--gold:#C8943A;--text:#EAEAEA}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
-.container{max-width:600px;text-align:center}
-h1{font-size:48px;font-weight:700;letter-spacing:6px;color:var(--gold);margin-bottom:12px}
-.subtitle{font-size:18px;opacity:0.8;margin-bottom:48px}
-.btn{display:block;border:2px solid var(--gold);color:var(--gold);padding:16px 32px;text-decoration:none;font-size:16px;font-weight:600;margin-bottom:16px;transition:all 0.3s;cursor:pointer;background:transparent;width:100%}
-.btn:hover{background:var(--gold);color:var(--bg)}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;align-items:center;justify-content:center}
-.modal.active{display:flex}
-.modal-content{width:95vw;height:90vh;position:relative}
-.modal iframe{width:100%;height:100%;border:2px solid var(--gold);border-radius:8px;background:#fff}
-.close{position:absolute;top:-40px;right:0;color:var(--gold);font-size:36px;cursor:pointer;font-weight:300}
-.footer{margin-top:64px;font-size:13px;opacity:0.5}
-@media(max-width:480px){h1{font-size:36px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTONOVA - Series A Data Room</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a; color: #fff; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .container { max-width: 600px; text-align: center; }
+        h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { font-size: 1.2rem; color: #a0a0a0; margin-bottom: 3rem; line-height: 1.6; }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 18px 40px; font-size: 1.1rem;
+            border: none; border-radius: 12px; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; }
+        .modal-content { position: relative; width: 90%; max-width: 700px; height: 90%; margin: 3% auto; background: #1a1a1a; border-radius: 16px; overflow: hidden; }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #fff; cursor: pointer; z-index: 1001; line-height: 1; }
+        .close:hover { color: #667eea; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .footer { margin-top: 4rem; font-size: 0.9rem; color: #666; }
+    </style>
 </head>
 <body>
-<div class="container">
-  <h1>AUTONOVA</h1>
-  <p class="subtitle">Series A $15M | AI Infrastructure for Southeast Asia</p>
+    <div class="container">
+        <h1>AUTONOVA</h1>
+        <p>Series A $15M Data Room<br>Request access to our confidential investor deck</p>
+        <button class="btn" onclick="openModal()">Request Investor Deck</button>
+        <div class="footer">© 2026 AUTONOVA. Confidential.</div>
+    </div>
 
-  <button class="btn" onclick="openModal('en')">View Deck EN</button>
-  <button class="btn" onclick="openModal('th')">ดู Deck TH</button>
-  <a class="btn" href="./AUTONOVA_Deal_Room.pdf" target="_blank">Access Data Room PDF</a>
-  <a class="btn" href="./Financial_Model.xlsx" download>Download Financial Model</a>
+    <!-- Modal with Google Form -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSceJVKVVX20U5bBGPotqwkvRPnoO5CrjEaRsengUZr_Aa-8XQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
 
-  <div class="footer">Confidential · Updated June 2026</div>
-</div>
-
-<div id="modal" class="modal" onclick="closeModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <iframe id="deckFrame" src=""></iframe>
-  </div>
-</div>
-
-<script>
-// ใส่รหัสผ่านก่อนเข้าเว็บ
-const pass = prompt("Enter Access Code:");
-if(pass!== "AUTONOVA2026") {
-  document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:40vh'>Access Denied</h1>";
-}
-
-const decks = {
-  en: './autonova_v4_en.html',
-  th: './autonova_v4_th.html'
-};
-function openModal(lang){
-  document.getElementById('deckFrame').src = decks;
-  document.getElementById('modal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(){
-  document.getElementById('modal').classList.remove('active');
-  document.getElementById('deckFrame').src = '';
-  document.body.style.overflow = 'auto';
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-</script>
+    <script>
+        function openModal() {
+            document.getElementById('formModal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('formModal').style.display = 'none';
+        }
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('formModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
