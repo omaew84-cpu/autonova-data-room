@@ -1,13 +1,39 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AUTONOVA Series A $15M</title>
-<style>body{margin:0;background:#0b0b0b;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:20px}
-h1{color:#d4a017;font-size:36px;margin:0 0 20px;line-height:1.1}
-.card{border:1px solid #b8860b;border-radius:12px;padding:18px;margin:0 0 14px;background:#111}
-.card h2{color:#d4a017;margin:0 0 6px;font-size:22px}
-.card p{margin:0;color:#ddd;font-size:16px;line-height:1.4}
-</style></head><body>
-<h1>AUTONOVA Series A<br>$15M</h1>
+<!doctype html><html lang="th"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUTONOVA $15M</title>
+<style>
+body{margin:0;background:#0b0b0b;color:#fff;font-family:system-ui,sans-serif;padding:16px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+h1{color:#d4a017;font-size:28px;margin:0}
+button{background:#d4a017;color:#000;border:0;padding:8px 14px;border-radius:8px;font-weight:700}
+.card{border:1px solid #b8860b;border-radius:12px;padding:16px;margin:0 0 12px;background:#111}
+.card h2{color:#d4a017;margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:#ddd;font-size:15px}
+.lang{display:none}
+.lang.active{display:block}
+</style>
+</head><body>
+<div class="top">
+<h1>AUTONOVA $15M</h1>
+<button onclick="toggle()">TH/EN</button>
+</div>
 
+<div id="th" class="lang active">
+<div class="card"><h2>สไลด์ 1: วิสัยทัศน์</h2><p>โครงสร้างพื้นฐาน AI สำหรับเอเชียตะวันออกเฉียงใต้</p></div>
+<div class="card"><h2>สไลด์ 2: ปัญหา</h2><p>องค์กรใน SEA ขาด GPU และความเชี่ยวชาญ LLM ท้องถิ่น</p></div>
+<div class="card"><h2>สไลด์ 3: โซลูชัน</h2><p>Sovereign AI Cloud + Thai LLM 47B + Enterprise Platform</p></div>
+<div class="card"><h2>สไลด์ 4: ตลาด</h2><p>$2.1B ภายในปี 2028</p></div>
+<div class="card"><h2>สไลด์ 5: ผลิตภัณฑ์</h2><p>3 ชั้น: Infrastructure, Models, Applications</p></div>
+<div class="card"><h2>สไลด์ 6: แรงยึดเกาะ</h2><p>$1.2M ARR, ลูกค้า 12 ราย</p></div>
+<div class="card"><h2>สไลด์ 7: โมเดลธุรกิจ</h2><p>Usage + SaaS, Gross Margin 85%</p></div>
+<div class="card"><h2>สไลด์ 8: Go-to-Market</h2><p>ขายตรง + พาร์ทเนอร์ + ชุมชนนักพัฒนา</p></div>
+<div class="card"><h2>สไลด์ 9: การแข่งขัน</h2><p>แพลตฟอร์ม AI ครบวงจรแห่งแรกใน SEA เทียบ AWS/Azure</p></div>
+<div class="card"><h2>สไลด์ 10: ทีม</h2><p>Ex-Google, AWS, SCB TechX — วิศวกร AI 25 คน</p></div>
+<div class="card"><h2>สไลด์ 11: การเงิน</h2><p>2026: $5M, 2027: $18M, 2028: $45M</p></div>
+<div class="card"><h2>สไลด์ 12: การระดมทุน</h2><p>Series A $15M — Lead investor secured</p></div>
+</div>
+
+<div id="en" class="lang">
 <div class="card"><h2>Slide 1: Vision</h2><p>AI Infrastructure for Southeast Asia</p></div>
 <div class="card"><h2>Slide 2: Problem</h2><p>SEA enterprises lack GPU access + local LLM expertise</p></div>
 <div class="card"><h2>Slide 3: Solution</h2><p>Sovereign AI Cloud + 47B Thai LLM + Enterprise Platform</p></div>
@@ -20,4 +46,12 @@ h1{color:#d4a017;font-size:36px;margin:0 0 20px;line-height:1.1}
 <div class="card"><h2>Slide 10: Team</h2><p>Ex-Google, AWS, SCB TechX. 25 AI Engineers</p></div>
 <div class="card"><h2>Slide 11: Financials</h2><p>2026: $5M, 2027: $18M, 2028: $45M Revenue</p></div>
 <div class="card"><h2>Slide 12: The Ask</h2><p>Raising $15M Series A. Lead investor secured.</p></div>
+</div>
+
+<script>
+function toggle(){
+  document.getElementById('th').classList.toggle('active');
+  document.getElementById('en').classList.toggle('active');
+}
+</script>
 </body></html>
