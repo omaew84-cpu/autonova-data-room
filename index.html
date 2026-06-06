@@ -1,65 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTONOVA - Series A Data Room</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a; color: #fff; min-height: 100vh;
-            display: flex; align-items: center; justify-content: center; padding: 20px;
-        }
-        .container { max-width: 600px; text-align: center; }
-        h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { font-size: 1.2rem; color: #a0a0a0; margin-bottom: 3rem; line-height: 1.6; }
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 18px 40px; font-size: 1.1rem;
-            border: none; border-radius: 12px; cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-weight: 600;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; }
-        .modal-content { position: relative; width: 90%; max-width: 700px; height: 90%; margin: 3% auto; background: #1a1a1a; border-radius: 16px; overflow: hidden; }
-        .close { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #fff; cursor: pointer; z-index: 1001; line-height: 1; }
-        .close:hover { color: #667eea; }
-        iframe { width: 100%; height: 100%; border: none; }
-        .footer { margin-top: 4rem; font-size: 0.9rem; color: #666; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUTONOVA — Silicon Sovereignty | $2B Data Room</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>body{font-family:Outfit;background:#020617;color:#e2e8f0} .gold{color:#F0C75E}</style>
 </head>
-<body>
-    <div class="container">
-        <h1>AUTONOVA</h1>
-        <p>Series A $15M Data Room<br>Request access to our confidential investor deck</p>
-        <button class="btn" onclick="openModal()">Request Investor Deck</button>
-        <div class="footer">© 2026 AUTONOVA. Confidential.</div>
-    </div>
+<body class="min-h-screen">
+<div class="max-w-5xl mx-auto p-6">
+  <header class="text-center py-10">
+    <h1 class="text-4xl md:text-6xl font-extrabold"><span class="gold">AUTONOVA</span></h1>
+    <p class="mt-3 text-xl">Silicon Sovereignty — Series A $2B @ $20B Pre</p>
+    <p class="mt-2 text-sm opacity-70">CONFIDENTIAL — NDA Only | Contact: LinkedIn DM "NDA"</p>
+  </header>
 
-    <!-- Modal with Google Form -->
-    <div id="formModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSceJVKVVX20U5bBGPotqwkvRPnoO5CrjEaRsengUZr_Aa-8XQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        </div>
-    </div>
+  <!-- 3 ภาพ Infographic -->
+  <div class="grid md:grid-cols-3 gap-4 my-8">
+    <img src="assets/images/สนามรบ.jpg" class="rounded-xl border border-yellow-600/20" alt="สนามรบเซมิคอนดักเตอร์">
+    <img src="assets/images/อนาคต.jpg" class="rounded-xl border border-yellow-600/20" alt="อนาคตอธิปไตยดิจิทัล">
+    <img src="assets/images/อธิปไตย.jpg" class="rounded-xl border border-yellow-600/20" alt="Silicon Sovereignty">
+  </div>
 
-    <script>
-        function openModal() {
-            document.getElementById('formModal').style.display = 'block';
-        }
-        function closeModal() {
-            document.getElementById('formModal').style.display = 'none';
-        }
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('formModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-    </script>
+  <!-- วิดีโอ -->
+  <div class="bg-slate-900/70 rounded-2xl p-6 my-8 border border-yellow-600/20">
+    <h2 class="text-2xl font-bold gold mb-4">Product Demo — 10s Teaser</h2>
+    <video controls autoplay muted loop playsinline class="w-full rounded-lg">
+      <source src="https://omaew84-cpu.github.io/autonova-data-room/02_Product_Demo/autonova_v4_en.html" type="video/mp4">
+      วิดีโอจะอัปโหลดภายหลัง
+    </video>
+    <p class="text-sm mt-2 opacity-70">*ถ้าวิดีโอไม่ขึ้น ให้ดูที่โฟลเดอร์ 02_Product_Demo</p>
+  </div>
+
+  <!-- Data Room Links -->
+  <div class="grid md:grid-cols-2 gap-4 my-10">
+    <a href="01_Executive_Summary/" class="block p-5 bg-slate-900 rounded-xl border border-slate-800 hover:border-yellow-600/50">
+      <h3 class="font-bold gold">01 — Executive Summary</h3>
+      <p class="text-sm opacity-80">Deal thesis & one-pager</p>
+    </a>
+    <a href="02_Product_Demo/" class="block p-5 bg-slate-900 rounded-xl border border-slate-800 hover:border-yellow-600/50">
+      <h3 class="font-bold gold">02 — Product Demo</h3>
+      <p class="text-sm opacity-80">Interactive demo TH/EN</p>
+    </a>
+    <a href="03_Market_Analysis/" class="block p-5 bg-slate-900 rounded-xl border border-slate-800 hover:border-yellow-600/50">
+      <h3 class="font-bold gold">03 — Market Analysis</h3>
+      <p class="text-sm opacity-80">US-China chip war data</p>
+    </a>
+    <a href="04_Financials/" class="block p-5 bg-slate-900 rounded-xl border border-slate-800 hover:border-yellow-600/50">
+      <h3 class="font-bold gold">04 — Financials</h3>
+      <p class="text-sm opacity-80">$2B use of funds</p>
+    </a>
+  </div>
+
+  <footer class="text-center py-8 text-sm opacity-60">
+    © 2026 AUTONOVA Technologies — Silicon Sovereignty for ASEAN
+  </footer>
+</div>
 </body>
 </html>
