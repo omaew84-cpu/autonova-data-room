@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AUTONOVA Data Room</title>
-<style>body{margin:0;font-family:system-ui;background:#fff;color:#111} .wrap{max-width:900px;margin:auto;padding:20px} video{width:100%;border-radius:12px;background:#000}</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUTONOVA — Data Room</title>
+<style>
+:root{--bg:#0a192f;--bg2:#112240;--text:#e6f1ff;--muted:#8892b0;--accent:#64ffda}
+body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
+.wrap{max-width:960px;margin:auto;padding:18px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:1px}
+.logo img{height:36px}
+.btn{background:var(--accent);color:#0a192f;border:0;padding:8px 14px;border-radius:20px;font-weight:700}
+h1{font-size:28px;margin:12px 0}
+video{width:100%;border-radius:14px;margin:14px 0;border:1px solid #1e2d4a}
+.card{background:var(--bg2);border:1px solid #1e2d4a;border-radius:14px;padding:16px;margin:12px 0}
+.grid{display:grid;gap:12px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.kpi{text-align:center}.kpi b{font-size:26px;color:var(--accent);display:block}
+.muted{color:var(--muted);font-size:14px}
+.qr{display:grid;place-items:center}
+@media(max-width:720px){.g2,.g3{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <h1>AUTONOVA — ศึกชิงอำนาจซิลิคอน</h1>
-  <video controls autoplay muted loop playsinline>
-    <source src="AUTONOVA__%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%AD%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%88%E0%B8%8B%E0%B8%B4%E0%B8%A5%E0%B8%B4%E0%B8%84%E0%B8%AD%E0%B8%99.mp4" type="video/mp4">
-  </video>
-  <p>$1.2M ARR • 12 ลูกค้า • 85% margin</p>
+  <div class="top">
+    <div class="logo"><img src="https://i.imgur.com/6QbX6yL.png" alt="AUTONOVA"><span>AUTONOVA</span></div>
+    <button class="btn" onclick="toggle()">EN / TH</button>
+  </div>
+
+  <h1 id="t-h1">ศึกชิงอำนาจซิลิคอน — Sovereign AI</h1>
+  <h1 id="e-h1" hidden>Sovereign AI for Thailand</h1>
+
+  <video controls autoplay muted loop playsinline src="AUTONOVA__%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%AD%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%88%E0%B8%8B%E0%B8%B4%E0%B8%A5%E0%B8%B4%E0%B8%84%E0%B8%AD%E0%B8%99.mp4"></video>
+
+  <div id="th">
+    <div class="grid g3">
+      <div class="card kpi"><b>$1.2M</b><span class="muted">ARR</span></div>
+      <div class="card kpi"><b>12</b><span class="muted">ลูกค้าองค์กร</span></div>
+      <div class="card kpi"><b>85%</b><span class="muted">Gross Margin</span></div>
+    </div>
+    <div class="card"><h2>Traction</h2><div class="grid g2"><div>• Latency <40ms ในประเทศ</div><div>• ประหยัด GPU 40-60%</div><div>• 3 verticals: รัฐ/การเงิน/โทรคม</div><div>• Pipeline $4.8M</div></div></div>
+  </div>
+  <div id="en" hidden>
+    <div class="grid g3">
+      <div class="card kpi"><b>$1.2M</b><span class="muted">ARR</span></div>
+      <div class="card kpi"><b>12</b><span class="muted">Clients</span></div>
+      <div class="card kpi"><b>85%</b><span class="muted">Margin</span></div>
+    </div>
+    <div class="card"><h2>Traction</h2><div class="grid g2"><div>• <40ms in-country</div><div>• 40-60% GPU savings</div><div>• Gov/Finance/Telco</div><div>• $4.8M pipeline</div></div></div>
+  </div>
+
+  <div class="card qr">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=100-255-218&bgcolor=10-25-47&data=https://omaew84-cpu.github.io/autonova-data-room/" alt="QR">
+    <div class="muted" style="margin-top:8px">Scan to open</div>
+  </div>
 </div>
+<script>
+let th=true;function toggle(){th=!th;document.getElementById('th').hidden=!th;document.getElementById('en').hidden=th;document.getElementById('t-h1').hidden=!th;document.getElementById('e-h1').hidden=th}
+</script>
 </body>
 </html>
