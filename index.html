@@ -1,110 +1,92 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AUTONOVA — Sovereign AI Data Room</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUTONOVA — Data Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ffffff;--text:#0f172a;--muted:#64748b;--card:#f8fafc;--blue:#2563eb}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter;background:var(--bg);color:var(--text)}
-.wrap{max-width:960px;margin:auto;padding:18px}
-.top{display:flex;justify-content:space-between;align-items:center;margin:8px 0 14px}
-.btn{border:0;background:var(--blue);color:#fff;padding:8px 14px;border-radius:20px;font-weight:600}
-h1{font-size:26px;margin:6px 0}h2{font-size:20px;margin:0 0 8px}
-.card{background:var(--card);border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin:12px 0}
-.grid{display:grid;gap:12px} .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
-video{width:100%;border-radius:14px;background:#000;margin:10px 0}
-.kpi{text-align:center;padding:12px}.kpi b{display:block;font-size:22px;color:var(--blue)}
-.team{display:flex;gap:10px;align-items:center}.avatar{width:44px;height:44px;border-radius:50%;background:#dbeafe;display:grid;place-items:center;font-weight:700}
-.muted{color:var(--muted);font-size:14px}
-.qr{display:grid;place-items:center;padding:10px}
-@media(max-width:720px){.g2,.g3{grid-template-columns:1fr}}
+:root{
+  --bg1:#050a1a; --bg2:#0e1b3a; --glass:rgba(255,255,255,.06);
+  --text:#eaf2ff; --muted:#9fb3d9;
+  --p1:#7c3aed; --p2:#3b82f6; --p3:#22d3ee; --accent:#a5f3fc;
+}
+*{box-sizing:border-box}html,body{margin:0;font-family:Outfit,system-ui;background:radial-gradient(1200px 600px at 80% -10%, #1e3a8a33, transparent), radial-gradient(800px 400px at 10% 0%, #7c3aed22, transparent), linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text)}
+.wrap{max-width:1050px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:12px;align-items:center;font-weight:800;font-size:22px;letter-spacing:.6px}
+.brand img{height:44px;border-radius:10px;box-shadow:0 0 20px #22d3ee55}
+.btn{background:linear-gradient(90deg,var(--p2),var(--p3));color:#04121f;border:0;padding:10px 18px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px #22d3ee33}
+h1{font-size:34px;margin:18px 0 10px;font-weight:800;background:linear-gradient(90deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero{border-radius:22px;overflow:hidden;border:1px solid #ffffff1a;background:var(--glass);backdrop-filter:blur(10px);box-shadow:0 20px 60px #0008}
+video{width:100%;display:block}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,#ffffff0f,#ffffff05);border:1px solid #ffffff18;border-radius:18px;padding:18px;backdrop-filter:blur(8px)}
+.kpi{text-align:center}.kpi b{font-size:32px;display:block;background:linear-gradient(90deg,var(--p3),var(--p1));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.kpi span{color:var(--muted)}
+h2{margin:0 0 8px;font-size:18px;color:var(--accent);letter-spacing:.3px}
+ul{margin:8px 0 0 18px;color:var(--muted)}li{margin:6px 0}
+.team{display:flex;gap:12px;align-items:center;margin:10px 0}.avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p1));display:grid;place-items:center;font-weight:800;color:#04121f}
+.qr{display:grid;place-items:center;text-align:center}.qr img{width:190px;height:190px;background:#fff;padding:10px;border-radius:16px;box-shadow:0 10px 30px #0005}
+footer{color:var(--muted);text-align:center;margin:28px 0 10px;font-size:13px}
+.glow{position:absolute;inset:-2px;border-radius:22px;background:conic-gradient(from 180deg,var(--p1),var(--p2),var(--p3),var(--p1));filter:blur(18px);opacity:.25;z-index:-1}
+@media(max-width:820px){.g2,.g3{grid-template-columns:1fr}h1{font-size:26px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top">
-    <div class="muted">omaew84-cpu.github.io/autonova-data-room</div>
+  <header>
+    <div class="brand"><img src="logo.png" alt="AUTONOVA">AUTONOVA</div>
     <button class="btn" onclick="toggle()">EN / TH</button>
+  </header>
+
+  <h1 id="th-h1">ศึกชิงอำนาจซิลิคอน — Sovereign AI Cloud</h1>
+  <h1 id="en-h1" hidden>Sovereign AI Cloud for Thailand</h1>
+
+  <div style="position:relative">
+    <div class="glow"></div>
+    <div class="hero">
+      <video controls autoplay muted loop playsinline>
+        <source src="AUTONOVA__%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%AD%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%88%E0%B8%8B%E0%B8%B4%E0%B8%A5%E0%B8%B4%E0%B8%84%E0%B8%AD%E0%B8%99.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 
-  <h1 id="t-h1">AUTONOVA — ศึกชิงอำนาจซิลิคอน</h1>
-  <h1 id="e-h1" hidden>AUTONOVA — Sovereign AI for Thailand</h1>
-
-  <video controls autoplay muted loop playsinline>
-    <source src="AUTONOVA__%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%AD%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%88%E0%B8%8B%E0%B8%B4%E0%B8%A5%E0%B8%B4%E0%B8%84%E0%B8%AD%E0%B8%99.mp4" type="video/mp4">
-  </video>
-
-  <!-- TH -->
   <div id="th">
-    <div class="grid g3">
-      <div class="card kpi"><b>$1.2M</b><span class="muted">ARR ปัจจุบัน</span></div>
-      <div class="card kpi"><b>12</b><span class="muted">ลูกค้าองค์กร</span></div>
-      <div class="card kpi"><b>85%</b><span class="muted">Gross Margin</span></div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card kpi"><b>$1.2M</b><span>ARR ปัจจุบัน</span></div>
+      <div class="card kpi"><b>12</b><span>ลูกค้าองค์กร</span></div>
+      <div class="card kpi"><b>85%</b><span>Gross Margin</span></div>
     </div>
-
-    <div class="card">
-      <h2>Traction</h2>
-      <div class="grid g2">
-        <div>• 3 verticals: รัฐ, การเงิน, โทรคมนาคม</div>
-        <div>• Latency < 40ms ในประเทศ (vs AWS 180ms)</div>
-        <div>• ประหยัดค่า GPU 40-60%</div>
-        <div>• Pipeline $4.8M (LOI 5 ราย)</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Team</h2>
-      <div class="team"><div class="avatar">M</div><div><b>Maew — Founder/CEO</b><div class="muted">Ex-AI infra, สร้าง Sovereign Cloud</div></div></div>
-      <div class="team"><div class="avatar">CTO</div><div><b>CTO — GPU Systems</b><div class="muted">CUDA, Kubernetes, 10+ ปี</div></div></div>
-      <div class="team"><div class="avatar">AI</div><div><b>Head of AI</b><div class="muted">LLM fine-tuning ภาษาไทย</div></div></div>
-    </div>
+    <div class="card"><h2>Traction</h2><div class="grid g2"><ul><li>3 verticals: รัฐ • การเงิน • โทรคม</li><li>ประหยัด GPU 40–60%</li></ul><ul><li>Latency <40ms ในประเทศ</li><li>Pipeline $4.8M (LOI 5)</li></ul></div></div>
+    <div class="card"><h2>Team</h2><div class="team"><div class="avatar">M</div><div><b>Maew — Founder/CEO</b><div style="color:var(--muted)">Sovereign Cloud Builder</div></div></div><div class="team"><div class="avatar">C</div><div><b>CTO — GPU Systems</b><div style="color:var(--muted)">CUDA • K8s • 10+ ปี</div></div></div><div class="team"><div class="avatar">A</div><div><b>Head of AI</b><div style="color:var(--muted)">Thai LLM Fine-tuning</div></div></div></div>
   </div>
 
-  <!-- EN -->
   <div id="en" hidden>
-    <div class="grid g3">
-      <div class="card kpi"><b>$1.2M</b><span class="muted">Current ARR</span></div>
-      <div class="card kpi"><b>12</b><span class="muted">Enterprise Clients</span></div>
-      <div class="card kpi"><b>85%</b><span class="muted">Gross Margin</span></div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card kpi"><b>$1.2M</b><span>Current ARR</span></div>
+      <div class="card kpi"><b>12</b><span>Enterprise Clients</span></div>
+      <div class="card kpi"><b>85%</b><span>Gross Margin</span></div>
     </div>
-
-    <div class="card">
-      <h2>Traction</h2>
-      <div class="grid g2">
-        <div>• 3 verticals: Gov, Finance, Telco</div>
-        <div>• <40ms in-country latency (vs AWS 180ms)</div>
-        <div>• 40-60% GPU cost savings</div>
-        <div>• $4.8M pipeline (5 LOIs)</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Team</h2>
-      <div class="team"><div class="avatar">M</div><div><b>Maew — Founder/CEO</b><div class="muted">Ex-AI infra, Sovereign Cloud builder</div></div></div>
-      <div class="team"><div class="avatar">CTO</div><div><b>CTO — GPU Systems</b><div class="muted">CUDA, Kubernetes, 10+ yrs</div></div></div>
-      <div class="team"><div class="avatar">AI</div><div><b>Head of AI</b><div class="muted">Thai LLM fine-tuning</div></div></div>
-    </div>
+    <div class="card"><h2>Traction</h2><div class="grid g2"><ul><li>Gov • Finance • Telco</li><li>40–60% GPU savings</li></ul><ul><li><40ms in-country</li><li>$4.8M pipeline</li></ul></div></div>
   </div>
 
-  <div class="card qr">
-    <h2 id="t-qr">สแกนเพื่อเปิด Data Room</h2>
-    <h2 id="e-qr" hidden>Scan to open Data Room</h2>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://omaew84-cpu.github.io/autonova-data-room/" alt="QR">
-    <div class="muted">https://omaew84-cpu.github.io/autonova-data-room/</div>
+  <div class="card qr" style="margin-top:16px">
+    <h2 id="th-qr">สแกนเพื่อเปิด Data Room</h2>
+    <h2 id="en-qr" hidden>Scan to open Data Room</h2>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://omaew84-cpu.github.io/autonova-data-room/" alt="QR">
+    <div style="color:var(--muted);margin-top:8px">omaew84-cpu.github.io/autonova-data-room</div>
   </div>
+
+  <footer>© 2026 AUTONOVA — Built in Thailand, for Thailand</footer>
 </div>
 
 <script>
-let th=true;
 function toggle(){
-  th=!th;
-  document.getElementById('th').hidden=!th;
-  document.getElementById('en').hidden=th;
-  document.getElementById('t-h1').hidden=!th;
-  document.getElementById('e-h1').hidden=th;
-  document.getElementById('t-qr').hidden=!th;
-  document.getElementById('e-qr').hidden=th;
+  const th=document.getElementById('th'), en=document.getElementById('en');
+  document.getElementById('th-h1').hidden=!th.hidden;
+  document.getElementById('en-h1').hidden=th.hidden;
+  document.getElementById('th-qr').hidden=!th.hidden;
+  document.getElementById('en-qr').hidden=th.hidden;
+  th.hidden=!th.hidden; en.hidden=!en.hidden;
 }
 </script>
 </body>
