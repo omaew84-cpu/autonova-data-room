@@ -1,90 +1,18 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<!-- Playables SDK -->
-<script>// Playables SDK v1.0.0... (โค้ดเดิมของคุณ)...</script>
-<script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AUTONOVA — Sovereign AI All-in-One</title>
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai",Arial,sans-serif;background:#fff;color:#0f172a;line-height:1.7;-webkit-font-smoothing:antialiased}
- .container{max-width:900px;margin:0 auto;padding:24px 20px 60px}
- .topbar{display:flex;justify-content:flex-end;margin-bottom:12px}
- .lang-btn{background:#2563eb;color:#fff;border:0;padding:8px 16px;border-radius:999px;font-weight:600;cursor:pointer}
-  header{text-align:center;padding:32px 20px 40px;background:linear-gradient(180deg,#eff6ff 0%,#fff 100%);border-radius:20px;margin-bottom:28px;border:1px solid #e0e7ff}
- .badge{display:inline-block;background:#2563eb;color:white;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;margin-bottom:12px}
-  h1{font-size:clamp(24px,4vw,34px);font-weight:800;margin-bottom:8px}h1 span{color:#2563eb}
- .subtitle{color:#475569;font-size:16px}
- .card{background:#f8fafc;padding:20px;border-radius:12px;margin-bottom:20px;border:1px solid #e2e8f0}
-  h2{font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-  h2::before{content:"";width:4px;height:22px;background:#2563eb;border-radius:4px}
- .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
- .layer{background:white;padding:16px;border-radius:12px;border:1px solid #e2e8f0;text-align:center}
- .layer-num{width:28px;height:28px;background:#2563eb;color:white;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:8px}
- .traction-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
- .metric{background:white;padding:14px;border-radius:12px;border:1px solid #e2e8f0;text-align:center}
- .metric-value{font-size:20px;font-weight:800;color:#2563eb}.metric-label{font-size:12px;color:#64748b;margin-top:4px}
- .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.roadmap-item{background:white;padding:16px;border-radius:12px;border:1px solid #e2e8f0;position:relative}.roadmap-item::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#2563eb,#60a5fa)}
- .strategy{border-left:4px solid #2563eb;background:white;padding:16px;margin-bottom:12px;border-radius:8px}
- .quote{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:28px;text-align:center;border-radius:12px;margin:28px 0}
- .qr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}.qr-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:10px;text-align:center}.qr-card img{width:100%;max-width:140px}
- .hidden{display:none}
-  @media(max-width:720px){.layers,.traction-grid,.roadmap,.qr-grid{grid-template-columns:1fr 1fr}}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AUTONOVA Data Room</title>
+<style>body{margin:0;font-family:system-ui;background:#fff;color:#111} .wrap{max-width:900px;margin:auto;padding:20px} video{width:100%;border-radius:12px;background:#000}</style>
 </head>
 <body>
-<div class="container">
-  <div class="topbar"><button class="lang-btn" onclick="toggleLang()">EN / TH</button></div>
-
-  <header>
-    <div class="badge">Master Summary v2</div>
-    <h1 id="h1-th"><span>AUTONOVA</span> — Sovereign AI แห่ง SEA</h1>
-    <h1 id="h1-en" class="hidden"><span>AUTONOVA</span> — Sovereign AI for SEA</h1>
-    <p class="subtitle" id="sub-th">ผู้สร้าง AI Stack อธิปไตยครบวงจรแห่งแรกของเอเชียตะวันออกเฉียงใต้</p>
-    <p class="subtitle hidden" id="sub-en">The first full-stack sovereign AI platform in Southeast Asia</p>
-  </header>
-
-  <!-- THAI -->
-  <div id="content-th">
-    <!-- ใส่ card ทั้งหมดจากโค้ดเดิมของคุณตรงนี้ (ปัญหา, 3-Layer, Traction, ตลาด, Roadmap, ระดมทุน, กลยุทธ์) -->
-    <div class="card"><h2>ปัญหา</h2><p>องค์กรใน SEA <strong>ขาด GPU และความเชี่ยวชาญ AI</strong> อย่างรุนแรง ทำให้ต้องพึ่ง AWS/Azure ที่ช้า แพง และไม่สอดคล้องกับ PDPA</p></div>
-    <div class="card"><h2>โซลูชัน 3-Layer</h2><div class="layers"><div class="layer"><div class="layer-num">1</div><h3>Infrastructure</h3><p>Sovereign AI Cloud</p></div><div class="layer"><div class="layer-num">2</div><h3>Models</h3><p>Thai LLM 47B</p></div><div class="layer"><div class="layer-num">3</div><h3>Applications</h3><p>Enterprise Platform</p></div></div></div>
-    <div class="card"><h2>Traction</h2><div class="traction-grid"><div class="metric"><div class="metric-value">$1.2M</div><div class="metric-label">ARR ปัจจุบัน</div></div><div class="metric"><div class="metric-value">12</div><div class="metric-label">ลูกค้าองค์กร</div></div><div class="metric"><div class="metric-value">85%</div><div class="metric-label">Gross Margin</div></div><div class="metric"><div class="metric-value">25</div><div class="metric-label">ทีม ex-Google/AWS</div></div></div></div>
-    <div class="card"><h2>กลยุทธ์ชนะ AWS / Azure</h2><div class="strategy"><strong>1. Sovereign Stack รายแรก</strong> – ผ่าน Compliance 100%</div><div class="strategy"><strong>2. แก้ GPU Shortage</strong> – พร้อมใช้ทันที</div><div class="strategy"><strong>3. Thai LLM 47B</strong> – ดีกว่า 40%+</div><div class="strategy"><strong>4. 3-Layer ครบ</strong> – ลด TCO 60%</div><div class="strategy"><strong>5. ทีมจากคู่แข่ง</strong> – รู้จุดอ่อน</div><div class="strategy"><strong>6. เป้า 2028</strong> – $1.2M → $45M</div></div>
-  </div>
-
-  <!-- ENGLISH -->
-  <div id="content-en" class="hidden">
-    <div class="card"><h2>Problem</h2><p>SEA enterprises <strong>lack GPU and AI expertise</strong>, forced to rely on AWS/Azure which is slow, expensive, and non-PDPA compliant.</p></div>
-    <div class="card"><h2>3-Layer Solution</h2><div class="layers"><div class="layer"><div class="layer-num">1</div><h3>Infrastructure</h3><p>Sovereign AI Cloud</p></div><div class="layer"><div class="layer-num">2</div><h3>Models</h3><p>Thai LLM 47B</p></div><div class="layer"><div class="num">3</div><h3>Applications</h3><p>Enterprise Platform</p></div></div></div>
-    <div class="card"><h2>Traction</h2><div class="traction-grid"><div class="metric"><div class="metric-value">$1.2M</div><div class="metric-label">Current ARR</div></div><div class="metric"><div class="metric-value">12</div><div class="metric-label">Enterprise</div></div><div class="metric"><div class="metric-value">85%</div><div class="metric-label">Gross Margin</div></div><div class="metric"><div class="metric-value">25</div><div class="metric-label">Team</div></div></div></div>
-    <div class="card"><h2>Winning Strategy</h2><div class="strategy"><strong>1. First Sovereign</strong> – 100% compliance</div><div class="strategy"><strong>2. Solve GPU</strong> – Instant access</div><div class="strategy"><strong>3. Thai LLM</strong> – 40%+ better</div><div class="strategy"><strong>4. Full Stack</strong> – 60% lower TCO</div><div class="strategy"><strong>5. Ex-rival Team</strong></div><div class="strategy"><strong>6. 2028 Goal</strong> – $45M</div></div>
-  </div>
-
-  <div class="quote"><div style="font-size:20px;font-weight:700">"AWS ให้คุณเช่าเซิร์ฟเวอร์ — AUTONOVA ให้คุณเป็นเจ้าของปัญญา"</div><div style="opacity:.85;margin-top:6px">Sovereign AI is not a feature. It's a nation's future.</div></div>
-
-  <div class="card"><h2>QR Data Room</h2><div class="qr-grid">
-    <div class="qr-card"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://omaew84-cpu.github.io/autonova-data-room/"><div>Main</div></div>
-    <div class="qr-card"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://omaew84-cpu.github.io/autonova-data-room/th/"><div>TH</div></div>
-    <div class="qr-card"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://omaew84-cpu.github.io/autonova-data-room/global/"><div>Global</div></div>
-    <div class="qr-card"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://omaew84-cpu.github.io/autonova-data-room/06_AV_Report/"><div>AV Report</div></div>
-  </div></div>
+<div class="wrap">
+  <h1>AUTONOVA — ศึกชิงอำนาจซิลิคอน</h1>
+  <video controls autoplay muted loop playsinline>
+    <source src="AUTONOVA__%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%8A%E0%B8%B4%E0%B8%87%E0%B8%AD%E0%B8%B3%E0%B8%99%E0%B8%B2%E0%B8%88%E0%B8%8B%E0%B8%B4%E0%B8%A5%E0%B8%B4%E0%B8%84%E0%B8%AD%E0%B8%99.mp4" type="video/mp4">
+  </video>
+  <p>$1.2M ARR • 12 ลูกค้า • 85% margin</p>
 </div>
-<script>
-let isTH=true;
-function toggleLang(){
-  isTH=!isTH;
-  document.getElementById('content-th').classList.toggle('hidden',!isTH);
-  document.getElementById('content-en').classList.toggle('hidden',isTH);
-  document.getElementById('h1-th').classList.toggle('hidden',!isTH);
-  document.getElementById('h1-en').classList.toggle('hidden',isTH);
-  document.getElementById('sub-th').classList.toggle('hidden',!isTH);
-  document.getElementById('sub-en').classList.toggle('hidden',isTH);
-  document.documentElement.lang=isTH?'th':'en';
-  if(window.playablesSDK) playablesSDK.sendEvent('language_toggle',{lang:isTH?'th':'en'});
-}
-</script>
 </body>
 </html>
