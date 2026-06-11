@@ -1,29 +1,619 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AUTONOVA</title>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<!-- Playables SDK -->
+<script>// Playables SDK v1.0.0
+// Game lifecycle bridge: rAF-based game-ready detection + event communication
+(function() {
+  'use strict';
+
+  // Idempotency: skip if already initialized (e.g., server-side injection
+  // followed by client-side inject-javascript via the Bloks webview component).
+  if (window.playablesSDK) return;
+
+  var HANDLER_NAME = 'playablesGameEventHandler';
+  var ANDROID_BRIDGE_NAME = '_MetaPlayablesBridge';
+  var RAF_FRAME_THRESHOLD = 3;
+
+  var gameReadySent = false;
+  var firstInteractionSent = false;
+  var errorSent = false;
+  var frameCount = 0;
+  var originalRAF = window.requestAnimationFrame;
+
+  // --- Transport Layer ---
+
+  function hasIOSBridge() {
+    return !!(window.webkit &&
+              window.webkit.messageHandlers &&
+              window.webkit.messageHandlers[HANDLER_NAME]);
+  }
+
+  function hasAndroidBridge() {
+    return !!(window[ANDROID_BRIDGE_NAME] &&
+              typeof window[ANDROID_BRIDGE_NAME].postEvent === 'function');
+  }
+
+  function isInIframe() {
+    return !!(window.parent && window.parent !== window);
+  }
+
+  function sendEvent(eventName, payload) {
+    var message = {
+      type: eventName,
+      payload: payload || {},
+      timestamp: Date.now()
+    };
+
+    if (hasIOSBridge()) {
+      try {
+        window.webkit.messageHandlers[HANDLER_NAME].postMessage(message);
+      } catch (e) { /* ignore */ }
+      return;
+    }
+
+    if (hasAndroidBridge()) {
+    try {
+      var p = payload || {};
+      p.__secureToken = window.__fbAndroidBridgeAuthToken || '';
+      p.timestamp = message.timestamp;
+      window[ANDROID_BRIDGE_NAME].postEvent(
+        eventName,
+        JSON.stringify(p)
+      );
+    } catch (e) { /* ignore */ }
+    return;
+  }
+
+    if (isInIframe()) {
+      try {
+        window.parent.postMessage(message, '*');
+      } catch (e) { /* ignore */ }
+      return;
+    }
+  }
+
+  // --- rAF Game-Ready Detection ---
+
+  function onFrame() {
+    if (gameReadySent) return;
+
+    frameCount++;
+    if (frameCount >= RAF_FRAME_THRESHOLD) {
+      gameReadySent = true;
+      sendEvent('game_ready', {
+        frame_count: frameCount,
+        detected_at: Date.now()
+      });
+      return;
+    }
+
+    originalRAF.call(window, onFrame);
+  }
+
+  if (originalRAF) {
+    window.requestAnimationFrame = function(callback) {
+      if (!gameReadySent) {
+        return originalRAF.call(window, function(timestamp) {
+          frameCount++;
+          if (frameCount >= RAF_FRAME_THRESHOLD && !gameReadySent) {
+            gameReadySent = true;
+            sendEvent('game_ready', {
+              frame_count: frameCount,
+              detected_at: Date.now()
+            });
+          }
+          callback(timestamp);
+        });
+      }
+      return originalRAF.call(window, callback);
+    };
+  }
+
+  // --- First User Interaction Detection ---
+
+  function setupFirstInteractionDetection() {
+    var events = ['touchstart', 'mousedown', 'keydown'];
+
+    function onFirstInteraction() {
+      if (firstInteractionSent) return;
+      firstInteractionSent = true;
+      sendEvent('user_interaction_start', null);
+
+      for (var i = 0; i < events.length; i++) {
+        document.removeEventListener(events[i], onFirstInteraction, true);
+      }
+    }
+
+    for (var i = 0; i < events.length; i++) {
+      document.addEventListener(events[i], onFirstInteraction, true);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFirstInteractionDetection);
+  } else {
+    setupFirstInteractionDetection();
+  }
+
+  // --- Auto Error Capture ---
+
+  window.addEventListener('error', function(event) {
+    if (errorSent) return;
+    errorSent = true;
+    sendEvent('error', {
+      message: event.message || 'Unknown error',
+      source: event.filename || '',
+      lineno: event.lineno || 0,
+      colno: event.colno || 0,
+      auto_captured: true
+    });
+  });
+
+  window.addEventListener('unhandledrejection', function(event) {
+    if (errorSent) return;
+    errorSent = true;
+    var reason = event.reason;
+    sendEvent('error', {
+      message: (reason instanceof Error) ? reason.message : String(reason),
+      type: 'unhandled_promise_rejection',
+      auto_captured: true
+    });
+  });
+
+  // --- Public API ---
+
+  window.playablesSDK = {
+    complete: function(score) {
+      sendEvent('game_ended', {
+        score: score,
+        completed: true
+      });
+    },
+
+    error: function(message) {
+      if (errorSent) return;
+      errorSent = true;
+      sendEvent('error', {
+        message: message || 'Unknown error',
+        auto_captured: false
+      });
+    },
+
+    sendEvent: function(eventName, payload) {
+      if (!eventName || typeof eventName !== 'string') return;
+      sendEvent(eventName, payload);
+    }
+  };
+
+  // Kick off rAF detection in case no game code calls rAF immediately
+  if (originalRAF) {
+    originalRAF.call(window, onFrame);
+  }
+})();</script>
+<!-- PLAYABLE_TOUCH_PATCH_V1 --><script>
+(function() {
+  if (window.__playableTouchPatchInstalled) return;
+  window.__playableTouchPatchInstalled = true;
+  var origAdd = EventTarget.prototype.addEventListener;
+  var blockedTypes = { touchstart: 1, touchmove: 1, wheel: 1 };
+  EventTarget.prototype.addEventListener = function(type, listener, options) {
+    if (blockedTypes[type]) {
+      if (options === undefined || options === null) {
+        options = { passive: true };
+      } else if (typeof options === 'boolean') {
+        options = { capture: options, passive: true };
+      } else {
+        options = Object.assign({}, options, { passive: true });
+      }
+    }
+    return origAdd.call(this, type, listener, options);
+  };
+})();
+</script><script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTONOVA — Sovereign AI แห่ง SEA (Master Summary v2)</title>
 <style>
-body{margin:0;background:#020617;color:#fff;font-family:Inter,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center}
-h1{font-size:48px;color:#F0C75E;margin:0 0 8px;font-weight:900}
-p.sub{color:#94a3b8;margin:0 0 40px}
-.card{width:100%;max-width:380px;background:#0f172a;border:1px solid rgba(240,199,94,.3);border-radius:16px;padding:24px;margin:12px}
-.card h2{color:#F0C75E;margin:0 0 8px;font-size:22px}
-.card div{color:#cbd5e1;font-size:14px;margin-bottom:16px}
-a.btn{display:block;background:#F0C75E;color:#000;padding:12px;border-radius:10px;text-decoration:none;font-weight:700}
-a.btn:hover{opacity:.9}
-</style></head><body>
-<h1>AUTONOVA</h1>
-<p class="sub">Choose Your Data Room</p>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", "Helvetica Neue", Arial, sans-serif;
+    background: #ffffff;
+    color: #0f172a;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+  header {
+    text-align: center;
+    padding: 32px 20px 40px;
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+    border-radius: 20px;
+    margin-bottom: 28px;
+    border: 1px solid #e0e7ff;
+  }
+  .badge {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  h1 span { color: #2563eb; }
+  .subtitle {
+    color: #475569;
+    font-size: 16px;
+  }
+  .card {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37,99,235,0.08);
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 22px;
+    background: #2563eb;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  p { color: #334155; margin-bottom: 8px; }
+  strong { color: #0f172a; font-weight: 600; }
+  
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .layer {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+  }
+  .layer-num {
+    width: 28px; height: 28px;
+    background: #2563eb;
+    color: white;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .layer h3 {
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: #0f172a;
+  }
+  .layer p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+  }
 
-<div class="card">
-<h2>THAILAND / SEA — $15M</h2>
-<div>AI Infrastructure • $1.2M ARR • 12 Enterprise</div>
-<a class="btn" href="th/">เข้าดู</a>
-</div>
+  .traction-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .metric {
+    background: white;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+  }
+  .metric-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2563eb;
+    line-height: 1.2;
+  }
+  .metric-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+  }
 
-<div class="card">
-<h2>GLOBAL — $2B</h2>
-<div>Silicon Sovereignty • Series A $2B @ $20B</div>
-<a class="btn" href="global/">Enter</a>
-</div>
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .roadmap-item {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+  }
+  .roadmap-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+  }
+  .roadmap-year { font-size: 13px; color: #64748b; }
+  .roadmap-value { font-size: 22px; font-weight: 800; color: #0f172a; }
 
-<p style="color:#475569;font-size:12px;margin-top:30px">© 2026 AUTONOVA • Confidential</p>
-</body></html>
+  .funding {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .fund-box {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #dbeafe;
+  }
+  .fund-label { font-size: 13px; color: #64748b; }
+  .fund-value { font-size: 18px; font-weight: 700; color: #2563eb; }
+
+  .strategy-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .strategy {
+    background: white;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .strategy-num {
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .strategy-text { font-size: 15px; color: #1e293b; }
+  .strategy-text strong { color: #2563eb; }
+
+  .quote {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    padding: 28px 24px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 28px 0;
+    box-shadow: 0 10px 30px rgba(37,99,235,0.25);
+  }
+  .quote-text {
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  .quote-sub {
+    opacity: 0.85;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .ref {
+    text-align: center;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
+    font-size: 14px;
+  }
+  .ref a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    word-break: break-all;
+  }
+  .ref a:hover { text-decoration: underline; }
+
+  footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  @media (max-width: 720px) {
+    .layers { grid-template-columns: 1fr; }
+    .traction-grid { grid-template-columns: repeat(2, 1fr); }
+    .roadmap { grid-template-columns: 1fr; }
+    .funding { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Master Summary v2</div>
+      <h1><span>AUTONOVA</span> — Sovereign AI แห่ง SEA</h1>
+      <p class="subtitle">ผู้สร้าง AI Stack อธิปไตยครบวงจรแห่งแรกของเอเชียตะวันออกเฉียงใต้</p>
+    </header>
+
+    <div class="card">
+      <h2>ปัญหา</h2>
+      <p>องค์กรใน SEA <strong>ขาด GPU และความเชี่ยวชาญ AI</strong> อย่างรุนแรง ทำให้ไม่สามารถพัฒนา AI ของตนเองได้ ต้องพึ่งพา AWS/Azure ที่ช้า แพง และไม่สอดคล้องกับกฎหมายข้อมูลท้องถิ่น (PDPA)</p>
+    </div>
+
+    <div class="card">
+      <h2>โซลูชัน 3-Layer</h2>
+      <div class="layers">
+        <div class="layer">
+          <div class="layer-num">1</div>
+          <h3>Infrastructure</h3>
+          <p>Sovereign AI Cloud</p>
+        </div>
+        <div class="layer">
+          <div class="layer-num">2</div>
+          <h3>Models</h3>
+          <p>Thai LLM 47B</p>
+        </div>
+        <div class="layer">
+          <div class="layer-num">3</div>
+          <h3>Applications</h3>
+          <p>Enterprise Platform</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Traction</h2>
+      <div class="traction-grid">
+        <div class="metric">
+          <div class="metric-value">$1.2M</div>
+          <div class="metric-label">ARR ปัจจุบัน</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">12</div>
+          <div class="metric-label">ลูกค้าองค์กร</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">85%</div>
+          <div class="metric-label">Gross Margin</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">25</div>
+          <div class="metric-label">ทีม ex-Google/AWS/SCB TechX</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>ตลาด</h2>
+      <p>ตลาด Sovereign AI ใน SEA คาดการณ์มูลค่า <strong style="color:#2563eb; font-size:20px;">$2.1B</strong> ภายในปี <strong>2028</strong> ขับเคลื่อนโดยนโยบาย Digital Sovereignty ของรัฐบาลไทย, อินโดนีเซีย, เวียดนาม</p>
+    </div>
+
+    <div class="card">
+      <h2>Roadmap รายได้</h2>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-year">2026</div>
+          <div class="roadmap-value">$5M</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-year">2027</div>
+          <div class="roadmap-value">$18M</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-year">2028</div>
+          <div class="roadmap-value">$45M</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>การระดมทุน</h2>
+      <div class="funding">
+        <div class="fund-box">
+          <div class="fund-label">Series A</div>
+          <div class="fund-value">$15M</div>
+        </div>
+        <div class="fund-box">
+          <div class="fund-label">Global Vision</div>
+          <div class="fund-value">$2B ที่ $20B pre-money</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background: #ffffff; border: 2px solid #2563eb;">
+      <h2>กลยุทธ์ชนะ AWS / Azure</h2>
+      <div class="strategy-grid">
+        <div class="strategy">
+          <div class="strategy-num">1</div>
+          <div class="strategy-text"><strong>Sovereign AI Stack รายแรก</strong> – ชนะด้วยอธิปไตยดิจิทัล ผ่าน Compliance 100% ในประเทศที่ AWS ทำไม่ได้</div>
+        </div>
+        <div class="strategy">
+          <div class="strategy-num">2</div>
+          <div class="strategy-text"><strong>แก้ GPU Shortage ท้องถิ่น</strong> – Sovereign AI Cloud พร้อมใช้งานทันที ไม่ต้องรอคิว 6-9 เดือนจากต่างประเทศ</div>
+        </div>
+        <div class="strategy">
+          <div class="strategy-num">3</div>
+          <div class="strategy-text"><strong>Thai LLM 47B</strong> – เข้าใจบริบทไทย, ภาษาถิ่น, และกฎหมายไทย ดีกว่าโมเดลทั่วไป 40%+</div>
+        </div>
+        <div class="strategy">
+          <div class="strategy-num">4</div>
+          <div class="strategy-text"><strong>3-Layer ครบวงจร</strong> – ลูกค้าไม่ต้องประกอบเอง (Infra + Model + App) ลด TCO 60%</div>
+        </div>
+        <div class="strategy">
+          <div class="strategy-num">5</div>
+          <div class="strategy-text"><strong>ทีมจากคู่แข่ง</strong> – อดีตผู้นำจาก Google/AWS/SCB TechX รู้จุดอ่อนและช่องว่างของยักษ์ใหญ่</div>
+        </div>
+        <div class="strategy">
+          <div class="strategy-num">6</div>
+          <div class="strategy-text"><strong>เป้า 2028</strong> – เติบโตจาก $1.2M สู่ $45M ด้วยการครองตลาด Sovereign AI ในภาครัฐและการเงิน</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote">
+      <div class="quote-text">"AWS ให้คุณเช่าเซิร์ฟเวอร์ — AUTONOVA ให้คุณเป็นเจ้าของปัญญา"</div>
+      <div class="quote-sub">Sovereign AI is not a feature. It's a nation’s future.</div>
+    </div>
+
+    <div class="ref">
+      อ้างอิง AV Report: <a href="https://omaew84-cpu.github.io/autonova-data-room/06_AV_Report/" target="_blank">https://omaew84-cpu.github.io/autonova-data-room/06_AV_Report/</a>
+    </div>
+
+    <footer>
+      บันทึกการทำงาน มิ.ย. 2026 • AUTONOVA Confidential
+    </footer>
+  </div>
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+</body>
+</html>
